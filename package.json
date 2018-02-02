@@ -1,9 +1,11 @@
 {
   "name": "signalk-ruuvitag-plugin",
   "version": "1.0.0",
-  "description": "Signal K plugin to provide RuuviTag data",
+  "description": "Signal K plugin to provide RuuviTag environmental data.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "deploy": "npm test && git tag -a v$npm_package_version -m 'Release v$npm_package_version'; git push --tags; npm publish --access public ."
+  },
   "license": "MIT",
   "keywords": [
     "signalk",

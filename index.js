@@ -59,6 +59,11 @@ module.exports = function(app) {
       title: `Tag ${id}`,
       type: 'object',
       properties: {
+        enabled: {
+          title: 'Enabled. Receive data and emit Signal K values',
+          type: 'boolean',
+          default: false
+        },
         name: {
           title: 'Source name',
           minLength: 1,
@@ -67,12 +72,6 @@ module.exports = function(app) {
           type: 'string',
           pattern: '^[a-zA-Z0-9]*$',
           default: id.substring(0, 6)
-        },
-        enabled: {
-          title: 'Enabled',
-          description: 'Emit Signal K values',
-          type: 'boolean',
-          default: false
         },
         location: {
           title: 'Location',
