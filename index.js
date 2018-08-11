@@ -124,6 +124,7 @@ const createRuuviData = (config, id, data) => {
     accelerationY: data.accelerationY,
     accelerationZ: data.accelerationZ,
     rssi: data.rssi,
+    battery: data.battery,
     raw: !data.eddystoneId
   }
 }
@@ -131,6 +132,7 @@ const createRuuviData = (config, id, data) => {
 const performUnitConversions = (data) => {
   data.humidity = data.humidity / 100 // 38% -> 0.38
   data.temperature = data.temperature + 273.15 // C -> K
+  data.battery = data.battery / 1000  // mV -> V
   if (!data.raw) {
     data.pressure = data.pressure * 100  // hPa -> Pa
   }
@@ -157,6 +159,10 @@ const createDelta = (data) => ({
         {
           path: `environment.${data.location}.rssi`,
           value: _.round(data.rssi)
+        },
+        {
+          path: `environment.${data.location}.battery`,
+          value: _.round(data.battery)
         },
       ]
     }
