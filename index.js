@@ -123,6 +123,7 @@ const createRuuviData = (config, id, data) => {
     accelerationX: data.accelerationX,
     accelerationY: data.accelerationY,
     accelerationZ: data.accelerationZ,
+    rssi: data.rssi,
     raw: !data.eddystoneId
   }
 }
@@ -152,6 +153,10 @@ const createDelta = (data) => ({
         {
           path: `environment.${data.location}.pressure`,
           value: _.round(data.pressure)
+        },
+        {
+          path: `environment.${data.location}.rssi`,
+          value: _.round(data.rssi)
         },
       ]
     }
