@@ -6,6 +6,11 @@ Signal K Node server plugin to provide [RuuviTag](https://tag.ruuvi.com/) enviro
 - Humidity
 - Preassure
 
+Also following sensor meta data is provided:
+
+- RSSI (signal strength)
+- Battery voltage (requires RuuviTag to run in [raw mode](https://lab.ruuvi.com/ruuvitag-fw/))
+
 ### Usage
 
 1. Install `signalk-ruuvitag-plugin` in Signal K Appstore and restart server
