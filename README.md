@@ -13,6 +13,7 @@ Also following sensor meta data is provided:
 
 ### Usage
 
+0. Running on linux: give `node` process permissions to scan BLE devices: ``sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)``
 1. Install `signalk-ruuvitag-plugin` in Signal K Appstore and restart server
 2. Open the `RuuviTag Plugin` config and activate plugin
 3. Wait for few minutes and let the plugin to detect RuuviTag beacons
