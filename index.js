@@ -142,7 +142,7 @@ const performUnitConversions = (data) => {
 const createDelta = (data) => ({
   updates: [
     {
-      'source': 'ruuvitag.' + data.name,
+      '$source': 'ruuvitag.' + data.name,
       values: [
         {
           path: `environment.${data.location}.humidity`,
