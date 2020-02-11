@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "baconjs": "1.0.1",
-    "lodash": "4.17.4",
-    "node-ruuvitag": "4.0.1"
+    "lodash": "^4.17.15",
+    "node-ruuvitag": "^4.2.0"
   },
   "repository": {
     "type": "git",
