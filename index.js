@@ -147,7 +147,7 @@ const createDelta = (data) => ({
       '$source': 'ruuvitag.' + data.name,
       values: [
         {
-          path: `environment.${data.location}.humidity`,
+          path: `environment.${data.location}.relativeHumidity`,
           value: _.round(data.humidity, 2)
         },
         {
