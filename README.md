@@ -4,12 +4,20 @@ Signal K Node server plugin to provide [RuuviTag](https://tag.ruuvi.com/) enviro
 
 - Temperature
 - Humidity
-- Preassure
+- Pressure
+- Acceleration X   (Ruuvi dataformat v5 only)
+- Acceleration Y   (Ruuvi dataformat v5 only)
+- Acceleration Z   (Ruuvi dataformat v5 only)
+- Movement Counter (Ruuvi dataformat v5 only)
 
 Also following sensor meta data is provided:
 
 - RSSI (signal strength)
-- Battery voltage (requires RuuviTag to run in [raw mode](https://lab.ruuvi.com/ruuvitag-fw/))
+- Battery voltage (requires RuuviTag to run in [raw mode](https://lab.ruuvi.com/ruuvitag-fw/)
+                   or Ruuvi dataformat v5)
+- Data Format                 (Ruuvi dataformat v5 only)
+- Measurement Sequence Number (Ruuvi dataformat v5 only)
+- TX Power                    (Ruuvi dataformat v5 only)
 
 ### Usage
 
