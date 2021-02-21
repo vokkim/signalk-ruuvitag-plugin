@@ -70,14 +70,14 @@ module.exports = function(app) {
           maxLength: 12,
           description: 'Length: 1-12, Valid characters: (a-z, A-Z, 0-9)',
           type: 'string',
-          pattern: '^[a-zA-Z0-9]*$',
+          pattern: '^[a-zA-Z0-9]+$',
           default: id.substring(0, 6)
         },
         location: {
           title: 'Location',
           description: 'Tag location',
           type: 'string',
-          enum: ['inside', 'outside', 'inside.refrigerator', 'inside.freezer', 'inside.heating', 'inside.engineRoom', 'inside.mainCabin'],
+          enum: ['inside', 'outside', 'inside.refrigerator', 'inside.freezer', 'inside.heating', 'inside.engineRoom', 'inside.mainCabin'], 
           default: 'inside'
         }
       }
@@ -112,12 +112,17 @@ const initializeRuuviListener = () => {
 }
 
 const createRuuviData = (config, id, data) => {
+  
+  path = 'relativeHumidity'
+  if  (_.startsWith(_.get(config, [id, 'location']),'outside')) {path = 'humidity'}
+
   return {
     id: id,
     name: _.get(config, [id, 'name'], id.substring(0, 6)),
     enabled: _.get(config, [id, 'enabled'], false),
     location: _.get(config, [id, 'location'], 'inside'),
     humidity: data.humidity,
+    humidityPath : path,
     pressure: data.pressure,
     temperature: data.temperature,
     accelerationX: data.accelerationX,
@@ -145,7 +150,7 @@ const createDelta = (data) => ({
       '$source': 'ruuvitag.' + data.name,
       values: [
         {
-          path: `environment.${data.location}.humidity`,
+          path: `environment.${data.location}.${data.humidityPath}`,
           value: _.round(data.humidity, 2)
         },
         {
@@ -161,7 +166,7 @@ const createDelta = (data) => ({
           value: _.round(data.rssi)
         },
         {
-          path: `environment.${data.location}.battery`,
+          path: `electrical.batteries.${data.name}.voltage`,
           value: _.round(data.battery)
         },
       ]
