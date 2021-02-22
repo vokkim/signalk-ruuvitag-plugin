@@ -75,10 +75,10 @@ module.exports = function(app) {
         },
         location: {
           title: 'Location',
-          description: 'environment.inside instance ID, empty to assign to environment.outside - Length: 0-12, Valid characters: (a-z, A-Z, 0-9)',
+          description: 'environment.inside instance ID (e.g. \'mainCabin\') - enter \'inside\' for generic inside - leave blank for generic outside.  --- Length: 0-20, Valid characters: (a-z, A-Z, 0-9)',
           type: 'string',
           pattern: '^[a-zA-Z0-9]*$',
-          maxLength: 12,
+          maxLength: 20,
         }
       }
     }))
