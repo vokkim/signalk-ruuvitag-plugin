@@ -75,10 +75,10 @@ module.exports = function(app) {
         },
         location: {
           title: 'Location',
-          description: 'Tag location',
+          description: 'environment.inside instance ID, empty to assign to environment.outside - Length: 0-12, Valid characters: (a-z, A-Z, 0-9)',
           type: 'string',
-          enum: ['inside', 'outside', 'inside.refrigerator', 'inside.freezer', 'inside.heating', 'inside.engineRoom', 'inside.mainCabin'], 
-          default: 'inside'
+          pattern: '^[a-zA-Z0-9]*$',
+          maxLength: 12,
         }
       }
     }))
@@ -112,17 +112,29 @@ const initializeRuuviListener = () => {
 }
 
 const createRuuviData = (config, id, data) => {
-  
-  path = 'relativeHumidity'
-  if  (_.startsWith(_.get(config, [id, 'location']),'outside')) {path = 'humidity'}
+
+  let pathEnvironment = 'outside'
+  let pathInstance = _.get(config, [id, 'location'], '')
+  pathInstance = _.replace(pathInstance,'.','')  // replace . from previous versions
+  let pathHumidity = 'humidity'
+
+  if (pathInstance !== '') {
+    pathEnvironment = 'inside'
+    if (_.toLower(pathInstance) !== 'inside') { pathInstance = '.' + pathInstance }
+    else { pathInstance = '' }
+    pathHumidity = 'relativeHumidity'
+  }
+
+  pathInstance = pathEnvironment + pathInstance
 
   return {
     id: id,
     name: _.get(config, [id, 'name'], id.substring(0, 6)),
     enabled: _.get(config, [id, 'enabled'], false),
-    location: _.get(config, [id, 'location'], 'inside'),
+    location: pathInstance,
     humidity: data.humidity,
-    humidityPath : path,
+    humidityPath: pathHumidity,
+    envPath: pathEnvironment,
     pressure: data.pressure,
     temperature: data.temperature,
     accelerationX: data.accelerationX,
