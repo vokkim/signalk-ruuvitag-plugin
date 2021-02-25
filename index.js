@@ -75,10 +75,12 @@ module.exports = function(app) {
         },
         location: {
           title: 'Location',
+          minLength: 1,
+          maxLength: 32,
           description: 'Tag location',
           type: 'string',
-          enum: ['inside', 'outside', 'inside.refrigerator', 'inside.freezer', 'inside.heating', 'inside.engineRoom', 'inside.mainCabin'],
-          default: 'inside'
+          pattern: '[a-zA-Z0-9]+(\.[a-zA-Z0-9])*',
+          default: 'inside.mainCabin'
         }
       }
     }))
@@ -145,7 +147,7 @@ const createDelta = (data) => ({
       '$source': 'ruuvitag.' + data.name,
       values: [
         {
-          path: `environment.${data.location}.humidity`,
+          path: `environment.${data.location}.relativeHumidity`,
           value: _.round(data.humidity, 2)
         },
         {
