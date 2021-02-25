@@ -18,9 +18,9 @@
     "email": "mikko.vesikkala@iki.fi"
   },
   "dependencies": {
-    "baconjs": "1.0.1",
-    "lodash": "^4.17.15",
-    "node-ruuvitag": "^4.2.0"
+    "baconjs": "3.0.17",
+    "lodash": "4.17.21",
+    "node-ruuvitag": "4.6.1"
   },
   "repository": {
     "type": "git",
