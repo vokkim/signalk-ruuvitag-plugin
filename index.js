@@ -124,7 +124,6 @@ const createRuuviData = (config, id, data) => {
     enabled: _.get(config, [id, 'enabled'], false),
     location: _.get(config, [id, 'location'], 'inside.mainCabin'),
     humidity: data.humidity,
-    envPath: pathEnvironment,
     pressure: data.pressure,
     temperature: data.temperature,
     accelerationX: data.accelerationX,
