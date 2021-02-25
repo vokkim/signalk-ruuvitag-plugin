@@ -19,7 +19,7 @@ Also following sensor meta data is provided:
 3. Wait for few minutes and let the plugin to detect RuuviTag beacons
 4. Reopen the `RuuviTag Plugin` config
 5. Name your tags, set appropriate locations and enable Signal K data
-6. Signal K values should now be transmitted to selected location, for example `environment.${location}.temperature`
+6. Signal K values should now be transmitted to selected location, for example `environment.inside.mainCabin`
 
 ![Plugin config](https://user-images.githubusercontent.com/1435910/35721120-472ff648-07f9-11e8-90e1-6e97a5a31ed8.png)
 
