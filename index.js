@@ -10,7 +10,6 @@ module.exports = function(app) {
 
   const start = (initialConfig) => {
     config = _.cloneDeep(initialConfig)
-
     if (!ruuviInitialized) {
       ruuviTagsProperty = initializeRuuviListener()
       ruuviInitialized = true
@@ -103,15 +102,19 @@ module.exports = function(app) {
 }
 
 const initializeRuuviListener = () => {
-  const ruuvi = require('node-ruuvitag')
-
-  return Bacon.fromEvent(ruuvi, 'found')
-    .map(tag => {
-      const dataStream = Bacon.fromEvent(tag, 'updated')
-      const id = tag.id
-      return {id, dataStream}
-    })
-    .scan([], (acc, value) => acc.concat([value]))
+  try {
+    const ruuvi = require('node-ruuvitag')
+    return Bacon.fromEvent(ruuvi, 'found')
+      .map(tag => {
+        const dataStream = Bacon.fromEvent(tag, 'updated')
+        const id = tag.id
+        return {id, dataStream}
+      })
+      .scan([], (acc, value) => acc.concat([value]))
+  } catch(e) {
+    console.error(`Error initializing signalk-ruuvitag-plugin: ${e.message}`)
+    return Bacon.never()
+  }
 }
 
 const createRuuviData = (config, id, data) => {
