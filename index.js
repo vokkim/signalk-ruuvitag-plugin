@@ -145,32 +145,35 @@ const performUnitConversions = (data) => {
   return data
 }
 
-const createDelta = (data) => ({
-  updates: [
-    {
-      '$source': 'ruuvitag.' + data.name,
-      values: [
-        {
-          path: `environment.${data.location}.relativeHumidity`,
-          value: _.round(data.humidity, 2)
-        },
-        {
-          path: `environment.${data.location}.temperature`,
-          value: _.round(data.temperature, 2)
-        },
-        {
-          path: `environment.${data.location}.pressure`,
-          value: _.round(data.pressure)
-        },
-        {
-          path: `environment.${data.location}.rssi`,
-          value: _.round(data.rssi)
-        },
-        {
-          path: `electrical.batteries.${data.name}.voltage`,
-          value: _.round(data.battery)
-        },
-      ]
-    }
-  ]
-})
+const createDelta = (data) => {
+  const humidityKey = data.location.indexOf('outside.') === 0 ? 'humidity' : 'relativeHumidity'
+  return {
+    updates: [
+      {
+        '$source': 'ruuvitag.' + data.name,
+        values: [
+          {
+            path: `environment.${data.location}.${humidityKey}`,
+            value: _.round(data.humidity, 2)
+          },
+          {
+            path: `environment.${data.location}.temperature`,
+            value: _.round(data.temperature, 2)
+          },
+          {
+            path: `environment.${data.location}.pressure`,
+            value: _.round(data.pressure)
+          },
+          {
+            path: `environment.${data.location}.rssi`,
+            value: _.round(data.rssi)
+          },
+          {
+            path: `electrical.batteries.${data.name}.voltage`,
+            value: _.round(data.battery)
+          }
+        ]
+      }
+    ]
+  }
+}

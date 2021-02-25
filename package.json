@@ -1,6 +1,6 @@
 {
   "name": "signalk-ruuvitag-plugin",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Signal K plugin to provide RuuviTag environmental data.",
   "main": "index.js",
   "scripts": {
