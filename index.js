@@ -70,17 +70,18 @@ module.exports = function(app) {
           maxLength: 12,
           description: 'Length: 1-12, Valid characters: (a-z, A-Z, 0-9)',
           type: 'string',
-          pattern: '^[a-zA-Z0-9]*$',
+          pattern: '^[a-zA-Z0-9]+$',
           default: id.substring(0, 6)
         },
         location: {
           title: 'Location',
           minLength: 1,
           maxLength: 32,
-          description: 'Tag location',
+          description: 'Tag location, for example `outside`. Default `inside.mainCabin`. Length: 0-32, Valid characters: (a-z, A-Z, 0-9)',
           type: 'string',
           pattern: '[a-zA-Z0-9]+(\.[a-zA-Z0-9])*',
-          default: 'inside.mainCabin'
+          default: 'inside.mainCabin',
+          maxLength: 32
         }
       }
     }))
@@ -118,8 +119,9 @@ const createRuuviData = (config, id, data) => {
     id: id,
     name: _.get(config, [id, 'name'], id.substring(0, 6)),
     enabled: _.get(config, [id, 'enabled'], false),
-    location: _.get(config, [id, 'location'], 'inside'),
+    location: _.get(config, [id, 'location'], 'inside.mainCabin'),
     humidity: data.humidity,
+    envPath: pathEnvironment,
     pressure: data.pressure,
     temperature: data.temperature,
     accelerationX: data.accelerationX,
@@ -163,7 +165,7 @@ const createDelta = (data) => ({
           value: _.round(data.rssi)
         },
         {
-          path: `environment.${data.location}.battery`,
+          path: `electrical.batteries.${data.name}.voltage`,
           value: _.round(data.battery)
         },
       ]
