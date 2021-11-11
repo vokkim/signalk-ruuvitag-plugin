@@ -139,6 +139,9 @@ const performUnitConversions = (data) => {
   data.humidity = data.humidity / 100 // 38% -> 0.38
   data.temperature = data.temperature + 273.15 // C -> K
   data.battery = data.battery / 1000  // mV -> V
+  data.accelerationX = data.accelerationX / 1000
+  data.accelerationY = data.accelerationY / 1000
+  data.accelerationZ = data.accelerationZ / 1000
   if (!data.raw) {
     data.pressure = data.pressure * 100  // hPa -> Pa
   }
@@ -163,6 +166,18 @@ const createDelta = (data) => {
           {
             path: `environment.${data.location}.pressure`,
             value: _.round(data.pressure)
+          },
+          {
+            path: `environment.${data.location}.accelerationX`,
+            value: _.round(data.accelerationX, 3)
+          },
+          {
+            path: `environment.${data.location}.accelerationY`,
+            value: _.round(data.accelerationY, 3)
+          },
+          {
+            path: `environment.${data.location}.accelerationZ`,
+            value: _.round(data.accelerationZ, 3)
           },
           {
             path: `environment.${data.location}.rssi`,
