@@ -157,11 +157,11 @@ const createDelta = (data) => {
         values: [
           {
             path: `environment.${data.location}.${humidityKey}`,
-            value: _.round(data.humidity, 2)
+            value: _.round(data.humidity, 5)
           },
           {
             path: `environment.${data.location}.temperature`,
-            value: _.round(data.temperature, 2)
+            value: _.round(data.temperature, 3)
           },
           {
             path: `environment.${data.location}.pressure`,
@@ -169,15 +169,15 @@ const createDelta = (data) => {
           },
           {
             path: `environment.${data.location}.accelerationX`,
-            value: _.round(data.accelerationX, 3)
+            value: _.round(data.accelerationX, 5)
           },
           {
             path: `environment.${data.location}.accelerationY`,
-            value: _.round(data.accelerationY, 3)
+            value: _.round(data.accelerationY, 5)
           },
           {
             path: `environment.${data.location}.accelerationZ`,
-            value: _.round(data.accelerationZ, 3)
+            value: _.round(data.accelerationZ, 5)
           },
           {
             path: `environment.${data.location}.rssi`,
@@ -185,7 +185,7 @@ const createDelta = (data) => {
           },
           {
             path: `electrical.batteries.${data.name}.voltage`,
-            value: _.round(data.battery)
+            value: _.round(data.battery, 3)
           }
         ]
       }
